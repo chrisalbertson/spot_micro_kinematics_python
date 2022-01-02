@@ -6,6 +6,6 @@ setup(
    description='A useful module',
    author='Mike Romanko',
    author_email='foomail@foo.com',
-   packages=['spot_micro_kinematics','spot_micro_kinematics.utilities'],  #same as name
+   packages=['spot_micro_kinematics'],  #same as name
    install_requires=['numpy'], #external packages as dependencies
 )

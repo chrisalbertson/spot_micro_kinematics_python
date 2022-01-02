@@ -5,8 +5,10 @@ import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
 from math import pi
-from ...spot_micro_stick_figure import SpotMicroStickFigure
-from ...utilities import spot_micro_kinematics as smk
+
+from spot_micro_stick_figure import SpotMicroStickFigure
+from spot_micro_kinematics import spot_micro_kinematics as smk
+
 
 d2r = pi/180
 r2d = 180/pi
@@ -59,7 +61,8 @@ def update_lines(num, coord_data, lines):
 
 # Attaching 3D axis to the figure
 fig = plt.figure()
-ax = p3.Axes3D(fig)
+ax = p3.Axes3D(fig, auto_add_to_figure=False) 
+fig.add_axes(ax)
 
 ax.set_xlabel('X')
 ax.set_ylabel('Z')
@@ -128,10 +131,16 @@ for leg in coords:
 # Create data of robot pitching up and down
 num_angles = 25
 pitch_angles = np.linspace(-30*d2r,30*d2r,num_angles)
+roll_angles  = np.linspace(-15*d2r,15*d2r,num_angles) 
+yaw_angles   = np.linspace(-15*d2r,15*d2r,num_angles) 
 coord_data = []
-for theta in pitch_angles:
-    # Set a pitch angle
-    sm.set_body_angles(theta=theta)
+#for theta in pitch_angles:
+for i in range(num_angles):
+
+    theta = pitch_angles[i]
+    phi   = roll_angles[i]
+    psi   = yaw_angles[i]
+    sm.set_body_angles(theta=theta, phi=phi, psi=psi)
 
     x = sm.get_leg_angles()
     
@@ -142,6 +151,8 @@ coord_data = coord_data + coord_data[::-1]
 
 # Creating the Animation object
 line_ani = animation.FuncAnimation(fig, update_lines, num_angles*2, fargs=(coord_data, lines),
-                                   interval=75, blit=False)
+                                   interval=50, blit=False)
 
 plt.show()
+line_ani.save('spot.gif', dpi=80, writer='imagemagick')
+

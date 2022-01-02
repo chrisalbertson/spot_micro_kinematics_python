@@ -5,16 +5,17 @@ import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
 from math import pi
-from ...spot_micro_stick_figure import SpotMicroLeg
-from ...utilities import transformations
-from ...utilities import spot_micro_kinematics as smk
+from spot_micro_stick_figure import SpotMicroLeg
+from spot_micro_kinematics import transformations
+from spot_micro_kinematics import spot_micro_kinematics as smk
 
 d2r = pi/180
 r2d = 180/pi
 
 # Attaching 3D axis to the figure
 fig = plt.figure()
-ax = p3.Axes3D(fig)
+ax = p3.Axes3D(fig, auto_add_to_figure=False) 
+fig.add_axes(ax)
 
 ax.set_xlabel('X')
 ax.set_zlabel('Y')

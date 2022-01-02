@@ -1,11 +1,16 @@
 '''Tests the spot micro stick figure and spot micro leg classes'''
 
 import unittest
-from ..spot_micro_stick_figure import SpotMicroLeg
-from ..utilities import spot_micro_kinematics as smk
-from ..utilities import transformations
+##from .spot_micro_stick_figure import SpotMicroLeg
+##from ..utilities import spot_micro_kinematics as smk
+##from ..utilities import transformations
 import numpy as np
 from math import cos, sin, pi
+
+import spot_micro_stick_figure
+from spot_micro_kinematics import spot_micro_kinematics as smk
+from spot_micro_kinematics import transformations
+
 
 d2r = pi/180
 r2d = 180/pi
