@@ -1,10 +1,9 @@
 """Tests for the transformations module"""
 
-##from .. import transformations
-import ../transformations
 import unittest
 import math
 import numpy as np
+from quadruped_kinematics import transformations
 
 d2r = math.pi/180 # deg to rad conversion
 r2d =  180/math.pi # rad to deg conversion

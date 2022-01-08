@@ -1,10 +1,8 @@
 # Readme
 
-A python library for forward and inverse kinematic operations on a spot micro quadruped.
+A python library for forward and inverse kinematic operations on a 12-DOF quadruped robot.
 
 ![Animation](assets/animation.gif)
-
-This library is designed around the spot micro 3d printable model developed by KDY0523, which can be found on thingverse (https://www.thingiverse.com/thing:3445283). The only requirement for this library is numpy for matrix operations.
 
 The forward and inverse kinematics of this library are based on the following paper:
 
@@ -12,34 +10,23 @@ The forward and inverse kinematics of this library are based on the following pa
     Inverse Kinematic Analysis Of A Quadruped Robot.
     International Journal of Scientific & Technology Research. 6.
 
-The figures below, taken from the paper above, show the general leg  and robot geometry implemented in this library. Note, the robot geometry implemented in this library is different than that of the paper. Legs **1** and **3** are rotated 180 degrees, as that's the way they are oriented on the spot micro frame.
+The figures below, taken from the paper above, show the general leg  and robot geometry implemented in this library. 
+Note, the robot geometry implemented in this library is different than that of the paper. 
+Legs **1** and **3** are rotated 180 degrees.
 
 ![Robot Geometry](assets/robot_geometry.png)
 ![Leg Geometry](assets/general_leg_geometry.png)
 
 ## Installation
-This package can be installed via pip install. Reccomend installing into a virtual environment instead of to your system!
-For example, if you have a python virtual environment somwhere, you could call pip install to the path of this package:
-```pip install /your/path/to/spot_micro_kinematics/```
-
-Alternatively, for a quick and dirty installation, copy the this package next to a python script that wants to use it.
-
-```
-├── your_script.py
-└── spot_micro_kinematics
-    ├── __init__.py
-    ├── spot_micro_stick_figure.py
-    ├── ...
-```
-
-And in your_script.py, just import:
-```python
-from spot_micro_kinematics.spot_micro_stick_figure import SpotMicroStickFigure
-```
+This package can be installed via pip install. Recommend installing into a virtual environment instead of to your system!
+For example, if you have a python virtual environment somewhere, you could call pip install to the path of this package:
+```pip install /your/path/to/quadruped_kinematics/```
 
 
 ## Assumptions
-This library contains various hard coded lengths of the spot micro frame as measured by me with a set of digital calipers. All dimensions are approximate at best. These lengths can be modified, they are the following properties of the SpotMicroStickFigure class:
+This library contains various hard coded lengths of the spot micro frame as measured by me with a set of digital
+calipers. All dimensions are approximate at best. These lengths can be modified, 
+they are the following properties of the QuadStickFigure class:
 ```
 hip_length
 upper_leg_length
@@ -50,18 +37,20 @@ body_length
 
 ## Use
 
-The library can be used by instantiating a SpotMicroStickFigure object at a height of 0.14 meters as follows. The constructor has optional arguments to set initial body x, y, z and phi, theta, psi position and orientation values. All distances are assumed to be meters, and all angles assumed to be radians.
+The library can be used by instantiating a QuadStickFigure object at a height of 0.14 meters as follows.
+The constructor has optional arguments to set initial body x, y, z and phi, theta, psi position and
+orientation values. All distances are assumed to be meters, and all angles assumed to be radians.
 
 ```python
-from spot_micro_kinematics.spot_micro_stick_figure import SpotMicroStickFigure
+from quadruped_kinematics import stick_figure as sfig
 
-sm = SpotMicroStickFigure(x=0,y=0.14,z=0)
+sm = sfig.QuadStickFigure(x=0,y=0.14,z=0)
 ```
 
-One reccomended use case is to set the absolute coordinates of all four feet at a height of 0, and at a neutral stance (where the feet are directly below the hip and shoulder joints). This can be done as follows:
+One recommended use case is to set the absolute coordinates of all four feet at a height of 0, and at a neutral stance (where the feet are directly below the hip and shoulder joints). This can be done as follows:
 
 ```python
-# Define absolute position for the legs
+# Define absolute position for the legsfour
 l = sm.body_length
 w = sm.body_width
 l1 = sm.hip_length

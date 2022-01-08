@@ -1,15 +1,17 @@
 '''Tests the spot micro stick figure and spot micro leg classes'''
 
 import unittest
-##from .spot_micro_stick_figure import SpotMicroLeg
-##from ..utilities import spot_micro_kinematics as smk
+##from .spot_micro_stick_figure import QuadLeg
+##from ..utilities import quadruped_kinematics as smk
 ##from ..utilities import transformations
 import numpy as np
 from math import cos, sin, pi
 
-import spot_micro_stick_figure
-from spot_micro_kinematics import spot_micro_kinematics as smk
-from spot_micro_kinematics import transformations
+from quadruped_kinematics import transformations
+from quadruped_kinematics import kinematics as smk
+from quadruped_kinematics import stick_figure as sfig
+
+
 
 
 d2r = pi/180
@@ -35,7 +37,7 @@ class TestSpotMicroLeg(unittest.TestCase):
         # leg start position should be at origin aligned with global coordinate frame
         ht_rf = smk.t_rightfront(body_ht,0,0)
 
-        leg = SpotMicroLeg(q1,q2,q3,l1,l2,l3,ht_rf,leg12=True)
+        leg = sfig.QuadLeg(q1, q2, q3, l1, l2, l3, ht_rf, leg12=True)
 
         (p1,p2,p3,p4) = leg.get_leg_points()
 
@@ -55,3 +57,6 @@ class TestSpotMicroLeg(unittest.TestCase):
             print (err)
         self.assertTrue(res)
         
+
+if __name__ == '__main__':
+    unittest.main()

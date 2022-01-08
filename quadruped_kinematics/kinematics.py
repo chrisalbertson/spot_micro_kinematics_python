@@ -6,7 +6,7 @@ Inverse Kinematic Analysis Of A Quadruped Robot.
 International Journal of Scientific & Technology Research. 6. 
 """
 
-from . import transformations
+from quadruped_kinematics import transformations
 from math import pi, cos, sin, atan2, sqrt
 import numpy as np
 
@@ -112,9 +112,11 @@ def t_0_to_1(theta1,l1):
     #          sin(theta1)     -cos(theta1)    0        -l1*sin(theta1);
     #                    0                0    1                      0;d
     #                    0                0    0                      1;]
-    
+
+
     t_01 = np.block( [ [ transformations.rotz(theta1), np.array([[-l1*cos(theta1)],[-l1*sin(theta1)],[0]])  ],
                                     [np.array([0,0,0,1])] ]    )
+
     return t_01
 
 
@@ -195,6 +197,8 @@ def t_0_to_4(theta1, theta2, theta3, l1, l2, l3):
     # return t_0_to_1(theta1,l1) @ t_1_to_2() @ t_2_to_3(theta2,l2) @ t_3_to_4(theta3,l3)
     return np.matmul(np.matmul(np.matmul(t_0_to_1(theta1,l1), t_1_to_2()), t_2_to_3(theta2,l2)), t_3_to_4(theta3,l3))
 
+
+
 def ikine(x4,y4,z4,l1,l2,l3,legs12=True):
     '''Use inverse kinematics fo calculate the leg angles for a leg to achieve a desired
     leg end point position (x4,y4,z4)
@@ -213,8 +217,10 @@ def ikine(x4,y4,z4,l1,l2,l3,legs12=True):
         A length 3 tuple of leg angles in the order (q1,q2,q3)
     '''
 
-    # Supporting variable D
+    # Supporting variable D (ORIGINAL CODE)
     D = (x4**2 + y4**2 + z4**2 - l1**2 - l2**2 - l3**2)/(2*l2*l3)
+    ## Let's hope this is no longer needed
+    ##D = np.clip(D, -1.0, 1.0)
 
     if legs12 == True:
         q3 = atan2(sqrt(1-D**2),D)

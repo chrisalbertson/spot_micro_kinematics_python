@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-import numpy as np
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
 from math import pi
-from spot_micro_stick_figure import SpotMicroLeg
-from spot_micro_kinematics import transformations
-from spot_micro_kinematics import spot_micro_kinematics as smk
+
+from quadruped_kinematics import transformations
+from quadruped_kinematics import kinematics as smk
+from quadruped_kinematics import stick_figure as sfig
 
 d2r = pi/180
 r2d = 180/pi
@@ -35,7 +34,7 @@ ht_start = transformations.homog_transform(0,0,0,0,0,0)
 l1 = 0.055
 l2 = 0.1075
 l3 = 0.13
-sml = SpotMicroLeg(0,0,0,l1,l2,l3,ht_start,leg12=True)
+sml = sfig.QuadLeg(0, 0, 0, l1, l2, l3, ht_start, leg12=True)
 
 # Try leg to a desired position
 x4 = 0

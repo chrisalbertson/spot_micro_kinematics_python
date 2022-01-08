@@ -6,8 +6,7 @@ import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
 from math import pi
 
-from spot_micro_stick_figure import SpotMicroStickFigure
-from spot_micro_kinematics import spot_micro_kinematics as smk
+from quadruped_kinematics import stick_figure as sfig
 
 
 d2r = pi/180
@@ -76,7 +75,7 @@ ax.set_ylim3d([0.2,-0.2])
 # ax.view_init(elev=135,azim=0)
 
 # Instantiate spot micro stick figure obeject
-sm = SpotMicroStickFigure(x=0,y=0.14,z=0, theta=00*d2r)
+sm = sfig.QuadStickFigure(x=0,y=0.14,z=0, theta=00*d2r)
 
 # Define absolute position for the legs
 l = sm.body_length

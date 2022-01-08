@@ -1,17 +1,13 @@
 import math
-from math import pi, sin, cos
-import matplotlib.pyplot as plt
+from math import pi
 import numpy as np
-##from .utilities import spot_micro_kinematics as smk
-##from .utilities import transformations
-from spot_micro_kinematics import spot_micro_kinematics as smk
-from spot_micro_kinematics import transformations
-import seaborn
+from quadruped_kinematics import kinematics as smk
+from quadruped_kinematics import transformations
 
 d2r = pi/180
 r2d = 180/pi
 
-class SpotMicroLeg(object):
+class QuadLeg(object):
     '''Encapsulates a spot micro leg that consists of 3 links and 3 joint angles
     
     Attributes:
@@ -151,7 +147,7 @@ class SpotMicroLeg(object):
         return (self._q1,self._q2,self._q3)
 
 
-class SpotMicroStickFigure(object):
+class QuadStickFigure(object):
     """Encapsulates an 12 DOF spot micro stick figure  
 
     Encapuslates a 12 DOF spot micro stick figure. The 12 degrees of freedom represent the 
@@ -218,21 +214,21 @@ class SpotMicroStickFigure(object):
         # First initialize to empty dict
         self.legs = {}
 
-        self.legs['leg_rightback'] =     SpotMicroLeg(self.rb_leg_angles[0],self.rb_leg_angles[1],self.rb_leg_angles[2],
-                                                     self.hip_length,self.upper_leg_length,self.lower_leg_length,
-                                                     smk.t_rightback(self.ht_body,self.body_length,self.body_width),leg12=True) 
+        self.legs['leg_rightback'] =     QuadLeg(self.rb_leg_angles[0], self.rb_leg_angles[1], self.rb_leg_angles[2],
+                                                 self.hip_length, self.upper_leg_length, self.lower_leg_length,
+                                                 smk.t_rightback(self.ht_body,self.body_length,self.body_width), leg12=True)
         
-        self.legs['leg_rightfront'] =   SpotMicroLeg(self.rf_leg_angles[0],self.rf_leg_angles[1],self.rf_leg_angles[2],
-                                                     self.hip_length,self.upper_leg_length,self.lower_leg_length,
-                                                     smk.t_rightfront(self.ht_body,self.body_length,self.body_width),leg12=True)
+        self.legs['leg_rightfront'] =   QuadLeg(self.rf_leg_angles[0], self.rf_leg_angles[1], self.rf_leg_angles[2],
+                                                self.hip_length, self.upper_leg_length, self.lower_leg_length,
+                                                smk.t_rightfront(self.ht_body,self.body_length,self.body_width), leg12=True)
                                                   
-        self.legs['leg_leftfront'] =    SpotMicroLeg(self.lf_leg_angles[0],self.lf_leg_angles[1],self.lf_leg_angles[2],
-                                                     self.hip_length,self.upper_leg_length,self.lower_leg_length,
-                                                     smk.t_leftfront(self.ht_body,self.body_length,self.body_width),leg12=False)
+        self.legs['leg_leftfront'] =    QuadLeg(self.lf_leg_angles[0], self.lf_leg_angles[1], self.lf_leg_angles[2],
+                                                self.hip_length, self.upper_leg_length, self.lower_leg_length,
+                                                smk.t_leftfront(self.ht_body,self.body_length,self.body_width), leg12=False)
 
-        self.legs['leg_leftback'] =     SpotMicroLeg(self.lb_leg_angles[0],self.lb_leg_angles[1],self.lb_leg_angles[2],
-                                                     self.hip_length,self.upper_leg_length,self.lower_leg_length,
-                                                     smk.t_leftback(self.ht_body,self.body_length,self.body_width),leg12=False) 
+        self.legs['leg_leftback'] =     QuadLeg(self.lb_leg_angles[0], self.lb_leg_angles[1], self.lb_leg_angles[2],
+                                                self.hip_length, self.upper_leg_length, self.lower_leg_length,
+                                                smk.t_leftback(self.ht_body,self.body_length,self.body_width), leg12=False)
 
     def get_leg_coordinates(self):
         '''Return coordinates of each leg as a tuple of 4 sets of 4 leg points'''
